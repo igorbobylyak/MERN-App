@@ -53,6 +53,7 @@ const updateTodoController = async (req, res, next) => {
         }
 
         const updatedTodo = await Todo.findByIdAndUpdate(id, req.body, {new: true});
+        return res.json(updatedTodo);
     } catch (err) {
         return next(err);
     }
