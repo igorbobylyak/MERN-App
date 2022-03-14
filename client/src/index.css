@@ -33,7 +33,7 @@ ul {
     align-items: center;
     padding: 20px 0;
     border-bottom: 1px solid #e6e6e6;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
 }
 
 .header ul {
@@ -89,4 +89,27 @@ label {
 .form-group .btn {
     width: 100%;
     margin: 15px 0;
+}
+
+.todos-container {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-item {
+    background: #fff;
+    width: 80%;
+    height: 120px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px black;
+    transition: .1s linear;
+}
+
+.todo-item:hover {
+    cursor: pointer;
+    transform: scale(1, 1.1);
 }
