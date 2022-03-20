@@ -35,7 +35,10 @@ const createTodoController = async (req, res, next) => {
 }
 
 const updateTodoController = async (req, res, next) => {
-    const { id } = req.parms;
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({message: 'Id is undefined'});
+    }
 
     try {
         const todo = await Todo.findById(id);
@@ -59,8 +62,33 @@ const updateTodoController = async (req, res, next) => {
     }
 }
 
+const deleteTodoController = async (req, res, next) => {
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({message: 'Id is undefined'});
+    }
+
+    try {
+        const todo = await Todo.findById(id);
+        if (!todo) return res.status(404).json({message: `Todo with id ${id} not found`});
+
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(401).json({message: `Unauthorized`});
+
+        if (todo.user.toString() !== user.id) {
+            return res.status(401).json({message: 'Unauthorized'});
+        }
+
+        const deletedTodo = await Todo.findByIdAndDelete(id);
+        return res.json(deletedTodo);
+    } catch (err) {
+        return next(err);
+    }
+}
+
 router.get('/', authOnly, getTodosController);
 router.post('/', authOnly, createTodoController);
 router.put('/:id', authOnly, updateTodoController);
+router.delete('/:id', authOnly, deleteTodoController);
 
 module.exports = router;
