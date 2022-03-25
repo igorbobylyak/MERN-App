@@ -106,10 +106,21 @@ label {
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 0 5px black;
+    display: flex;
+    justify-content: space-between;
     transition: .1s linear;
 }
 
 .todo-item:hover {
     cursor: pointer;
     transform: scale(1, 1.1);
+}
+
+.todo-item .todo-content {
+    margin: 5px;
+    text-align: left;
+}
+
+.todo-content {
+    padding: 20px;
 }

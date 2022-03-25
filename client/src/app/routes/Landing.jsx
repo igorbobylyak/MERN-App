@@ -4,7 +4,7 @@ function Landing() {
     return (
         <div className="todos-container">
             <Todo title="First" body="This is 1" />
-            <Todo title="Second" body="This is 2" />
+            <Todo title="Third" body="This is 2" />
         </div>
     )
 }
