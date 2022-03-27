@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { register, reset } from '../../features/auth/authSlice';
 import PersonIcon from '@mui/icons-material/Person';
 
 function Register() {
@@ -11,6 +14,14 @@ function Register() {
 
     const { name, email, password, password2 } = registerData;
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+
+    const { user, isLoading } = useSelector(state => state.auth);
+
+    useEffect(() => {
+    }, [user, navigate, dispatch])
+
     const onChange = event => {
         setRegisterData((prevState) => ({
             ...prevState,
@@ -20,7 +31,11 @@ function Register() {
 
     const onSubmit = event => {
         event.preventDefault();
-        console.log(registerData)
+        if (password !== password2) {
+            console.log('ERROR')
+        } else {
+            dispatch(register({name, email, password}));
+        }
     }
 
     return (
