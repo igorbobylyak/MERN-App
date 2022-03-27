@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
+import PersonIcon from '@mui/icons-material/Person';
 
 function Register() {
-    const [data, setData] = useState({
+    const [registerData, setRegisterData] = useState({
         name: '',
         email: '',
         password: '',
         password2: ''
     });
 
-    const { name, email, password, password2 } = data;
+    const { name, email, password, password2 } = registerData;
 
     const onChange = event => {
-        setData((...prevState) => ({
+        setRegisterData((prevState) => ({
             ...prevState,
             [event.target.name]: event.target.value
         }))
@@ -19,6 +20,7 @@ function Register() {
 
     const onSubmit = event => {
         event.preventDefault();
+        console.log(registerData)
     }
 
     return (
@@ -26,10 +28,9 @@ function Register() {
         <div className="wrapper">
         <form className="form" onSubmit={onSubmit}>
             <div className="heading">
-                <h1>Register</h1>
+                <h1><PersonIcon fontSize='large'/>Register</h1>
             </div>
             <div className="form-group">
-                <label htmlFor="Name">Name:</label>
                 <input 
                 type="text" 
                 name="name" 
@@ -41,9 +42,8 @@ function Register() {
                 className="form-control" />
             </div>
             <div className="form-group">
-                <label htmlFor="email">Email:</label>
                 <input 
-                type="text" 
+                type="email" 
                 name="email" 
                 id="email" 
                 value={email}
@@ -53,7 +53,6 @@ function Register() {
                 className="form-control" />
             </div>
             <div className="form-group">
-                <label htmlFor="password">Password:</label>
                 <input 
                 type="password" 
                 name="password" 
@@ -65,7 +64,6 @@ function Register() {
                 className="form-control" />
             </div>
             <div className="form-group">
-                <label htmlFor="password2">Confirm password:</label>
                 <input 
                 type="password" 
                 name="password2" 

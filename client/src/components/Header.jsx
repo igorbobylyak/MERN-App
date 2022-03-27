@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import LoginIcon from '@mui/icons-material/Login';
+import PersonIcon from '@mui/icons-material/Person';
 
 function Header() {
     return (
@@ -6,14 +8,18 @@ function Header() {
                 <div className='logo'>
                     <Link to="/">Dashboard</Link>
                 </div>
-                    <ul>
-                        <li >
-                            <Link to="/login">Login</Link>
-                        </li>
-                        <li>
-                            <Link to="/register">Register</Link>
-                        </li>
-                    </ul>
+                <ul>
+                    <li >
+                        <Link to="/login">
+                            <LoginIcon /> Login
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/register">
+                            <PersonIcon /> Register
+                        </Link>
+                    </li>
+                </ul>
         </header>
     )
 }
