@@ -21,25 +21,21 @@ const getUsers = async (req, res, next) => {
 }
 
 const createUser = async (req, res, next) => {
-    const { name, email, username, password, role } = req.body;
+    const { name, email, password } = req.body;
 
-    if (!name || !email || !username || !password) {
+    if (!name || !email || !password) {
         return res.status(400).json({message: `Please provide all fields!`});
     }
 
     try {
         const existingUser = await User.findOne({email});
         if (existingUser) return res.status(400).json({message: `User with email ${email} already exists`});
-
-        if (role && role === 'admin' && username !== 'bobbella') {
-            return res.status(400).json({message: 'You cannot be admin'});
-        }
         
-        const newUser = { name, email, username };
+        const newUser = { name, email };
 
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(password, 10);
-        const user = await User.create({...newUser, password: hashedPass, role: !role ? 'user' : role});
+        const user = await User.create({...newUser, password: hashedPass, role: 'user'});
         return res.status(201).json(user);
     } catch (err) {
         return next(err);
@@ -47,16 +43,12 @@ const createUser = async (req, res, next) => {
 }
 
 const updateUser = async (req, res, next) => {
-    const { name, email, username, password, role } = req.body;
+    const { name, email, password } = req.body;
     const { id } = req.params;
     try {
         const user = await User.findById(id);
 
         if (!user) return res.status(404).json({message: `User with id ${id} does not exist`});
-
-        if (role && role === 'admin' && user.username !== 'bobbella') {
-            return res.status(400).json({message: 'You don`t have access rights to become an admin'});
-        }
 
         const updatedUser = await User.findByIdAndUpdate(id, req.body, {new: true});
         return res.json(updatedUser);
@@ -77,7 +69,7 @@ const deleteUser = async (req, res, next) => {
 
         await user.remove();
 
-        res.json(user);
+        return res.json(user);
     } catch (err) {
         return next(err);
     }

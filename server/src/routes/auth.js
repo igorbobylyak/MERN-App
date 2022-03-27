@@ -7,9 +7,9 @@ const { authOnly } = require('../middleware/auth');
 const router = express.Router();
 
 const registerUser = async (req, res, next) => {
-    const { name, email, username, password } = req.body;
+    const { name, email, password } = req.body;
 
-    if (!name || !email || !username || !password) {
+    if (!name || !email || !password) {
         return res.status(400).json({message: `Please provide all fields!`});
     }
 
@@ -19,13 +19,12 @@ const registerUser = async (req, res, next) => {
 
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(password, salt);
-        const user = await User.create({name, email, username, password: hashedPass, role: 'user'});
+        const user = await User.create({name, email, password: hashedPass, role: 'user'});
 
         return res.json({
             id: user.id, 
             name: user.name, 
             email: user.email,
-            username: user.username,
             role: user.role, 
             token: generateToken(user.id)
         });
@@ -50,7 +49,6 @@ const loginUser = async (req, res, next) => {
                 id: user.id, 
                 name: user.name, 
                 email: user.email, 
-                username: user.username, 
                 role: user.role,
                 token: generateToken(user.id)
             });
