@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import LoginIcon from '@mui/icons-material/Login';
 
 function Login() {
 
@@ -26,10 +27,9 @@ function Login() {
         <div className="wrapper">
         <form className="form" onSubmit={onSubmit}>
             <div className="heading">
-                <h1>Login</h1>
+                <h1><LoginIcon fontSize='large' />Login</h1>
             </div>
             <div className="form-group">
-                <label htmlFor="email">Email:</label>
                 <input 
                 type="text" 
                 name="email" 
@@ -41,7 +41,6 @@ function Login() {
                 className="form-control" />
             </div>
             <div className="form-group">
-                <label htmlFor="password">Password:</label>
                 <input 
                 type="password" 
                 name="password" 
