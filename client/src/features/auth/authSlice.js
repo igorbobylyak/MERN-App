@@ -5,7 +5,8 @@ const user = JSON.parse(localStorage.getItem('user'));
 
 const initialState = {
     user: user ? user : null,
-    isLoading: false
+    isLoading: false,
+    message: ''
 }
 
 export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
@@ -36,6 +37,7 @@ export const authSlice = createSlice({
     reducers: {
         reset: (state) => {
             state.isLoading = false
+            state.message = ''
         }
     },
     extraReducers: (builder) => {
@@ -50,6 +52,7 @@ export const authSlice = createSlice({
             .addCase(register.rejected, (state, action) => {
                 state.isLoading = false
                 state.user = null
+                state.message = action.payload
             })
             .addCase(login.pending, (state) => {
                 state.isLoading = true
@@ -61,6 +64,8 @@ export const authSlice = createSlice({
             .addCase(login.rejected, (state, action) => {
                 state.isLoading = false
                 state.user = null
+                state.message = action.payload
+                
             })
             .addCase(logout.fulfilled, (state) => {
                 state.user = null

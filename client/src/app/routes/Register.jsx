@@ -18,7 +18,7 @@ function Register() {
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
-    const { user, isLoading } = useSelector(state => state.auth);
+    const { user, isLoading, message } = useSelector(state => state.auth);
 
     useEffect(() => {
         if (user) {
@@ -38,7 +38,7 @@ function Register() {
     const onSubmit = event => {
         event.preventDefault();
         if (password !== password2) {
-            console.log('ERROR')
+            
         } else {
             dispatch(register({name, email, password}));
         }
@@ -102,6 +102,15 @@ function Register() {
             <div className="form-group">
                 <button type="submit" className="btn btn-dark">Login</button>
             </div>
+            {message ? (
+            <div className="form-group">
+              <div className="alert alert-danger" role="alert">
+                {message}
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
         </form>
         </div>
         </>
