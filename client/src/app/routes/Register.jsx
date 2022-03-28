@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { register, reset } from '../../features/auth/authSlice';
 import PersonIcon from '@mui/icons-material/Person';
+import Spinner from '../../components/Spinner';
 
 function Register() {
     const [registerData, setRegisterData] = useState({
@@ -41,6 +42,10 @@ function Register() {
         } else {
             dispatch(register({name, email, password}));
         }
+    }
+
+    if (isLoading) {
+        return <Spinner />
     }
 
     return (
