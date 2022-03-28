@@ -8,7 +8,7 @@ const initialState = {
     isLoading: false
 }
 
-export const register = createAsyncThunk('/register', async (user, thunkAPI) => {
+export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
     try {
         
     } catch (err) {
