@@ -42,7 +42,17 @@ ul {
 }
 
 .header ul li {
+    margin-top: 15px;
     margin-left: 20px;
+}
+
+.welcome-container {
+    display: flex;
+    align-items: center;
+}
+
+.welcome-container p {
+    margin: 15px;
 }
 
 .wrapper {

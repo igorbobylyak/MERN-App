@@ -1,17 +1,34 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { login, reset } from '../../features/auth/authSlice';
 import LoginIcon from '@mui/icons-material/Login';
+import Spinner from '../../components/Spinner';
 
 function Login() {
 
-    const [data, setData] = useState({
+    const [loginData, setLoginData] = useState({
         email: '',
         password: ''
     });
 
-    const { email, password } = data;
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { email, password } = loginData;
+
+    const { user, isLoading } = useSelector(state => state.auth);
+
+    useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
+
+        dispatch(reset());
+    }, [user, dispatch, navigate])
 
     const onChange = event => {
-        setData((prevState) => ({
+        setLoginData((prevState) => ({
             ...prevState,
             [event.target.name]: event.target.value
         }))
@@ -19,7 +36,13 @@ function Login() {
 
     const onSubmit = event => {
         event.preventDefault();
+        
+        dispatch(login({email, password}));
+        dispatch(reset());
+    }
 
+    if (isLoading) {
+        return <Spinner />
     }
 
     return (
@@ -31,7 +54,7 @@ function Login() {
             </div>
             <div className="form-group">
                 <input 
-                type="text" 
+                type="email" 
                 name="email" 
                 id="email" 
                 value={email}
