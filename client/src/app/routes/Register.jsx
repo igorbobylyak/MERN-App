@@ -20,6 +20,11 @@ function Register() {
     const { user, isLoading } = useSelector(state => state.auth);
 
     useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+
+        dispatch(reset());
     }, [user, navigate, dispatch])
 
     const onChange = event => {

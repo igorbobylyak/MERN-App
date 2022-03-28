@@ -84,10 +84,6 @@ label {
     align-items: center;
 }
 
-.form-control {
-    max-width: 400px;
-}
-
 .form-group .btn {
     width: 100%;
     margin: 15px 0;
