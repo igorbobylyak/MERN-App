@@ -7,8 +7,13 @@ const initialState = {
     message: ''
 }
 
-export const getTodos = createAsyncThunk('todos/get', async () => {
-    return await todoService.getTodos();
+export const getTodos = createAsyncThunk('todos/get', async (thunkAPI) => {
+    try {
+        return await todoService.getTodos();
+    } catch(err) {
+        const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
 })
 
 export const todoSlice = createSlice({

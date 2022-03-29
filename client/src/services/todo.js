@@ -1,12 +1,10 @@
 import axios from "axios";
-
-const token = JSON.parse(localStorage.getItem('user')).token;
-
-const headers = {
-    Authorization: `Bearer ${token}`
-};
+import authService from "./auth";
 
 const getTodos = async () => {
+    const headers = {
+        Authorization: `Bearer ${authService.getToken()}`
+    }
     try {
         const response = await axios.get('/api/todos', { headers });
         return response.data;

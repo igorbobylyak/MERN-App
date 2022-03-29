@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+const getToken = () => {
+    return JSON.parse(localStorage.getItem('user')).token;
+}
+
 const register = async (user) => {
     try {
         const response = await axios.post('/api/auth/registry', user);
@@ -33,6 +37,7 @@ const logout = () => {
 }
 
 const authService = {
+    getToken,
     register,
     login,
     logout
