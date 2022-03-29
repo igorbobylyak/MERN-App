@@ -38,6 +38,11 @@ function Login() {
 
     dispatch(login({ email, password }));
     dispatch(reset());
+    
+    setLoginData((prevState) => ({
+      ...prevState,
+      password: ''
+    }))
   };
 
   if (isLoading) {

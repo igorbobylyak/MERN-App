@@ -20,7 +20,18 @@ function Header() {
   return (
     <header className="header">
       <div className="logo">
-        <Link to="/">Dashboard</Link>
+        {user ? (
+          <>
+            <Link to="/">Dashboard</Link>
+            {user.role && user.role === "admin" ? (
+              <Link to="/admin">Admin</Link>
+            ) : (
+              ""
+            )}
+          </>
+        ) : (
+          ""
+        )}
       </div>
       {!user ? (
         <ul>
