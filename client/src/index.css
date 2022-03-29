@@ -131,11 +131,12 @@ header .logo a {
 
 .todo-item .todo-content {
     margin: 5px;
+    padding: 20px;
     text-align: left;
 }
 
-.todo-content {
-    padding: 20px;
+.todo-item svg {
+    margin: 5px;
 }
 
 .create-todo-form {
