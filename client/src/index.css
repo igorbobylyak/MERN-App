@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins' sans-serif;
     height: 100vh;
     background: rgba(250, 244, 244, 0.918);
 }
@@ -32,7 +32,7 @@ ul {
     align-items: center;
     padding: 20px 0;
     border-bottom: 1px solid #e6e6e6;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .header ul {
@@ -61,7 +61,7 @@ ul {
     align-items: center;
 }
 
-form {
+.form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -111,7 +111,7 @@ form {
 .todo-item {
     background: #fff;
     width: 20%;
-    height: 120px;
+    height: auto;
     margin: 20px;
     border-radius: 8px;
     box-shadow: 0 0 5px black;
@@ -132,4 +132,17 @@ form {
 
 .todo-content {
     padding: 20px;
+}
+
+.create-todo-form {
+    display: flex;
+}
+
+.create-todo-form .btn {
+    margin: 20px;
+}
+
+.todo-form form {
+    width: 40%;
+    margin: 20px;
 }

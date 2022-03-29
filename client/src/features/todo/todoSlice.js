@@ -16,6 +16,15 @@ export const getTodos = createAsyncThunk('todos/get', async (thunkAPI) => {
     }
 })
 
+export const createTodo = createAsyncThunk('todo/create', async (todo, thunkAPI) => {
+    try {
+        return await todoService.createTodo(todo);
+    } catch(err) {
+        const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+})
+
 export const deleteTodo = createAsyncThunk('todo/delete', async (todoId, thunkAPI) => {
     try {
         return await todoService.deleteTodo(todoId);
@@ -47,6 +56,21 @@ export const todoSlice = createSlice({
                 state.isLoading = false
                 state.message = action.payload
             })
+        
+        builder
+            .addCase(createTodo.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(createTodo.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.todos.push(action.payload)
+            })
+            .addCase(createTodo.rejected, (state, action) => {
+                state.isLoading = false
+                state.message = action.payload
+            })
+        
+        builder
             .addCase(deleteTodo.pending, (state) => {
                 state.isLoading = true
             })

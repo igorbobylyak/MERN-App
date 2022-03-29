@@ -16,6 +16,19 @@ const getTodos = async () => {
     }
 }
 
+const createTodo = async (todo) => {
+    const headers = {
+        Authorization: `Bearer ${authService.getToken()}`
+    }
+
+    try {
+        const response = await axios.post(API, todo, { headers });
+        return response.data;
+    } catch(err) {
+        throw new Error(err.response.data.message || err.message);
+    }
+}
+
 const deleteTodo = async (todoId) => {
     const headers = {
         Authorization: `Bearer ${authService.getToken()}`
@@ -31,6 +44,7 @@ const deleteTodo = async (todoId) => {
 
 const todoService = {
     getTodos,
+    createTodo,
     deleteTodo
 }
 
