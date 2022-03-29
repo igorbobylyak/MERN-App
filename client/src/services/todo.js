@@ -1,12 +1,28 @@
 import axios from "axios";
 import authService from "./auth";
 
+const API = '/api/todos'
+
 const getTodos = async () => {
     const headers = {
         Authorization: `Bearer ${authService.getToken()}`
     }
+
     try {
-        const response = await axios.get('/api/todos', { headers });
+        const response = await axios.get(API, { headers });
+        return response.data;
+    } catch(err) {
+        throw new Error(err.response.data.message || err.message);
+    }
+}
+
+const deleteTodo = async (todoId) => {
+    const headers = {
+        Authorization: `Bearer ${authService.getToken()}`
+    }
+
+    try {
+        const response = await axios.delete(`${API}/${todoId}`, {headers});
         return response.data;
     } catch(err) {
         throw new Error(err.response.data.message || err.message);
@@ -14,7 +30,8 @@ const getTodos = async () => {
 }
 
 const todoService = {
-    getTodos
+    getTodos,
+    deleteTodo
 }
 
 export default todoService;

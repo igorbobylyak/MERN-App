@@ -34,7 +34,7 @@ function Landing() {
   <div className="todos-container">
     {todos.length > 0 ? (
       todos.map(todo => (
-        <Todo key={todo._id} title={todo.title} body={todo.body} />
+        <Todo key={todo._id} todo={todo} />
       ))
     ) : (<h5>No todos to display</h5>)}
   </div>

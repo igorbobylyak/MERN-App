@@ -1,25 +1,28 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteTodo } from '../features/todo/todoSlice';
 import CloseIcon from '@mui/icons-material/Close';
 
-function Todo(props) {
-    const { title, body } = props;
+function Todo({ todo }) {
+    const dispatch = useDispatch();
 
-    const openTodo = () => {
-        console.log(props)
+    const openTodo = (event) => {
+        console.log(todo)
     }
 
-    const deleteTodo = (event) => {
+    const removeTodo = (event) => {
         event.stopPropagation();
+        dispatch(deleteTodo(todo._id))
     }
 
     return (
         <>
             <div onClick={openTodo} className="todo-item">
                 <div className='todo-content'>
-                    <h2>{title}</h2>
-                    <p>{body}</p>
+                    <h2>{todo.title}</h2>
+                    <p>{todo.body}</p>
                 </div>
-                <CloseIcon onClick={deleteTodo} />
+                <CloseIcon onClick={removeTodo} />
             </div>
         </>
     )
